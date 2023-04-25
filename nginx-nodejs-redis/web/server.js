@@ -2,10 +2,11 @@ const os = require('os');
 const express = require('express');
 const app = express();
 const redis = require('redis');
-const redisClient = redis.createClient({
-  host: 'redis',
-  port: 6379
-});
+const REDISHOST = process.env.REDISHOST || '10.232.209.147';
+const REDISPORT = process.env.REDISPORT || 6379;
+
+const redisClient = redis.createClient(REDISPORT, REDISHOST);
+redisClient.on('error', err => console.error('ERR:REDIS:', err));
 
 app.get('/', function(req, res) {
     redisClient.get('numVisits', function(err, numVisits) {
@@ -19,6 +20,6 @@ app.get('/', function(req, res) {
     });
 });
 
-app.listen(5000, function() {
-    console.log('Web application is listening on port 5000');
+app.listen(8080, function() {
+    console.log('Web application is listening on port 8080');
 });

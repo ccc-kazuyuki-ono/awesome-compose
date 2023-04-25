@@ -1,0 +1,19 @@
+runtime: custom
+entrypoint: npm run start
+env: flex
+service: default
+
+network:
+  name: default
+
+resources:
+  cpu: 2
+  memory_gb: 1.8
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
+
+liveness_check:
+  path: "/liveness_check"
+  timeout_sec: 15
