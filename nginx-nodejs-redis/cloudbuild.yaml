@@ -18,7 +18,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 
     'us-central1-docker.pkg.dev/${PROJECT_ID}/docker-repo-01760/myimage', 
-    '.']
+    'nginx-nodejs-redis/web/']
 
   # Docker Push
   - name: 'gcr.io/cloud-builders/docker'
@@ -28,6 +28,6 @@ steps:
   # Entrypoint, timeout and environment variables
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
-    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy gcp/web_app.yaml --image-url us-central1-docker.pkg.dev/gp-d-cccmk-mkc01/docker-repo-01760/myimage:latest']
+    args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy nginx-nodejs-redis/gcp/web_app.yaml --image-url us-central1-docker.pkg.dev/gp-d-cccmk-mkc01/docker-repo-01760/myimage:latest']
     timeout: '1600s'
 # [END cloudbuild_basic_config]
